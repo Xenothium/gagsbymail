@@ -1,7 +1,7 @@
 # Gags by Mail
 Nishant's evil ideas turned into reality.
 
-Please report any bugs or issues [here](https://github.com/aneesh-neelam/VITacademics/issues)
+Please report any bugs or issues [here](https://github.com/Xenothium/gagsbymail/issues)
 
 ## Instructions for Installation:
 ### Install Node.js/io.js (Latest Stable Release)
