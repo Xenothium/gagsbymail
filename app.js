@@ -28,6 +28,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 var secret = process.env.SECRET_KEY || 'randomsecretstring';
 app.use(cookieParser(secret, {signed: true}));
 
+//View Engine Setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 //MongoDB
 var mongodbOptions = {
   hosts: [{
