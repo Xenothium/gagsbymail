@@ -82,20 +82,22 @@ router.post('/buy', function (req, res){
                 newOrder[i].rMessage = req.body.rmessage3;
             }
         }
-        //store newOrder in cache, and the keys in sessions
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
         var key = getRandomInt(0,10000).toString();
         cache.put(key, newOrder, 86400000);
         res.cookie('key', key, {maxAge: 86400000, signed: true});
+        //TODO - Add URLs!
         if (quantity == 1) {
             switch (orderType) {
                     case 'ChillyChocolate' : res.redirect('');
                                             break;
                     case 'LoveLetter'      : res.redirect('');
                                             break;
-                    case 'Gulal'           : res.redirect('');
+                    case 'GlitterBomb'     : res.redirect('');
+                                            break;
+                    case 'GlitterEnvelope' : res.redirect('');
                                             break;
                     }
         }
@@ -105,22 +107,25 @@ router.post('/buy', function (req, res){
                                             break;
                     case 'LoveLetter'      : res.redirect('');
                                             break;
-                    case 'Gulal'           : res.redirect('');
+                    case 'GlitterBomb'     : res.redirect('');
+                                            break;
+                    case 'GlitterEnvelope' : res.redirect('');
                                             break;
                     }
         }
-        else {
+        else if (quantity == 3){
             switch (orderType) {
                     case 'ChillyChocolate' : res.redirect('');
                                             break;
                     case 'LoveLetter'      : res.redirect('');
                                             break;
-                    case 'Gulal'           : res.redirect('');
+                    case 'GlitterBomb'     : res.redirect('');
+                                            break;
+                    case 'GlitterEnvelope' : res.redirect('');
                                             break;
                     }
             }
         }
-        // TODO - Redirection
     else {
         res.render('buy',{response:"Error filling details"});
     }
