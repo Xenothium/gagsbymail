@@ -15,7 +15,7 @@ router.get('/failiure', function (req,res) {
 });
 
 router.get('/cancel', function (req,res) {
-    res.redirect('index', {title: 'Gags By Mail'});
+    res.render('index', {title: 'Gags By Mail'});
 });
 
 module.exports = router;
