@@ -16,6 +16,7 @@ recepient name, phone number, email,  address line, city,state/province country 
 router.post('/buy', function (req, res){
     if (req.signedCookies.key) res.clearCookie('key', { });
     var quantity = req.body.dropdown;
+    var orderType = req.body.described;
     var newOrder = [];
     for (var i = 0;i < quantity; i++) {
         newOrder[i] = {};
@@ -28,6 +29,7 @@ router.post('/buy', function (req, res){
         req.body.rcity2 = req.body.rcity1;
         req.body.rstate2 = req.body.rstate1;
         req.body.rcountry2 = req.body.rcountry1;
+        req.body.rmessage2 = req.body.rmessage1;
         req.body.rname3 = req.body.rname1;
         req.body.rnumber3 = req.body.rnumber1;
         req.body.remail3 = req.body.remail1;
@@ -35,6 +37,7 @@ router.post('/buy', function (req, res){
         req.body.rcity3 = req.body.rcity1;
         req.body.rstate3 = req.body.rstate1;
         req.body.rcountry3 = req.body.rcountry1;
+        req.body.rmessage3 = req.body.rmessage1;
     }
     var valid = function () {
         if (req.body.rnumber.length != 10 || req.body.rnumber2.length != 10 || req.body.rnumber3.length != 10) {
@@ -56,6 +59,7 @@ router.post('/buy', function (req, res){
                 newOrder[i].rCity = req.body.rcity1;
                 newOrder[i].rState = req.body.rstate1;
                 newOrder[i].rCountry = req.body.rcountry1;
+                newOrder[i].rMessage = req.body.rmessage1;
             }
             else if (i == 1){
                 newOrder[i].rName = req.body.rname2;
@@ -65,6 +69,7 @@ router.post('/buy', function (req, res){
                 newOrder[i].rCity = req.body.rcity2;
                 newOrder[i].rState = req.body.rstate2;
                 newOrder[i].rCountry = req.body.rcountry2;
+                newOrder[i].rMessage = req.body.rmessage2;
             }
             else {
                 newOrder[i].rName = req.body.rname3;
@@ -74,6 +79,7 @@ router.post('/buy', function (req, res){
                 newOrder[i].rCity = req.body.rcity3;
                 newOrder[i].rState = req.body.rstate3;
                 newOrder[i].rCountry = req.body.rcountry3;
+                newOrder[i].rMessage = req.body.rmessage3;
             }
         }
         //store newOrder in cache, and the keys in sessions
@@ -83,30 +89,76 @@ router.post('/buy', function (req, res){
         var key = getRandomInt(0,10000).toString();
         cache.put(key, newOrder, 86400000);
         res.cookie('key', key, {maxAge: 86400000, signed: true});
-
+        if (quantity == 1) {
+            switch (orderType) {
+                    case 'ChillyChocolate' : res.redirect('');
+                                            break;
+                    case 'LoveLetter'      : res.redirect('');
+                                            break;
+                    case 'Gulal'           : res.redirect('');
+                                            break;
+                    }
+        }
+        else if (quantity == 2) {
+         switch (orderType) {
+                    case 'ChillyChocolate' : res.redirect('');
+                                            break;
+                    case 'LoveLetter'      : res.redirect('');
+                                            break;
+                    case 'Gulal'           : res.redirect('');
+                                            break;
+                    }
+        }
+        else {
+            switch (orderType) {
+                    case 'ChillyChocolate' : res.redirect('');
+                                            break;
+                    case 'LoveLetter'      : res.redirect('');
+                                            break;
+                    case 'Gulal'           : res.redirect('');
+                                            break;
+                    }
+            }
+        }
         // TODO - Redirection
-    }
     else {
         res.render('buy',{response:"Error filling details"});
     }
 });
 
 router.get('/finish', function (req, res) {
-    if (res.signedCookie.key) {
-        var orders = cache.get(res.signedCookie.key);
-        var collection = req.db.collection('transactions');
-        var onInsert = function (err, orders) {
-            if (err) {
-                console.log('Error Storing Transaction');
+    if (req.query.type === 'success') {
+        if (res.signedCookies.key) {
+            var orders = cache.get(res.signedCookies.key);
+            var collection = req.db.collection('transactions');
+            var onInsert = function (err, orders) {
+                if (err) {
+                    console.log('Error Storing Transaction');
+                }
+                else {
+                    console.log('Transaction Stored');
+                }
+                cache.del(res.signedCookies.key);
+                if (req.signedCookies.key) res.clearCookie('key', { });
             }
-            else {
-                console.log('Transaction Stored');
+            for (var i = 0; i < orders.length; i++) {
+                collection.insert(orders[i], onInsert);
             }
-            if (req.signedCookies.key) res.clearCookie('key', { });
+            res.render('success', {});
         }
-        for (var i = 0; i < orders.length; i++) {
-            collection.insert(orders[i], onInsert);
+        else {
+            console.log('Transaction Insertion Failed');
         }
+    }
+    else if (req.query.type === 'cancel') {
+        cache.del(res.signedCookies.key);
+        if (req.signedCookies.key) res.clearCookie('key', { });
+        res.redirect('/');
+    }
+    else {
+        cache.del(res.signedCookies.key);
+        if (req.signedCookies.key) res.clearCookie('key', { });
+        res.render('failiure', {});
     }
 });
 
