@@ -1,8 +1,7 @@
 var express = require('express');
-var mongo = require('mongodb');
-var router = express.Router();
+var cache = require('memory-cache');
 
-var mongoURI = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/gagsbyemail';
+var router = express.Router();
 
 router.get('/', function(req, res) {
   res.render('index', {});
@@ -76,7 +75,7 @@ router.post('/buy', function (req, res){
                 newOrder[i].rCountry = req.body.rcountry3;
             }
         }
-        exports.orders = newOrder; //trying to export the newOrder object so as to insert only after success is received
+        //store newOrder in cache, and the keys in sessions
     }
     else {
         res.render('buy',{response:"Error filling details"});
@@ -84,11 +83,10 @@ router.post('/buy', function (req, res){
 });
 
 router.get('/success', function (req, res) {
-    var onConnect = function (err, db) {
-        var collection = db.collection(transactions);
+        var collection = req.db.collection('transactions');
         var onInsert = function (err, orders) {
             if (err) {
-                console.log('Error');
+                console.log('Error Storing Transaction');
             }
             else {
                 console.log('Transaction Stored');
@@ -97,8 +95,6 @@ router.get('/success', function (req, res) {
         for (var i = 0; i < objects[i].quantity; i++) {
             collection.insert(orders[i], onInsert);
         }
-        mongo.connect(mongoURI, onConnect);
-    }
 });
 
 module.exports = router;
