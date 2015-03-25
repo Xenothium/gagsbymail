@@ -4,7 +4,8 @@ var cache = require('memory-cache');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  res.render('index', {});
+    if (req.signedCookies.key) res.clearCookie('key', { });
+    res.render('index', {});
 });
 
 router.get('/buy', function(req, res) {
@@ -13,12 +14,13 @@ router.get('/buy', function(req, res) {
 /*name,phone number,email,address line, city,state/province, country (dropdown), pin code
 recepient name, phone number, email,  address line, city,state/province country (dropdown), pin code*/
 router.post('/buy', function (req, res){
+    if (req.signedCookies.key) res.clearCookie('key', { });
     var quantity = req.body.dropdown;
     var newOrder = [];
     for (var i = 0;i < quantity; i++) {
         newOrder[i] = {};
     }
-    if (checkBox) {
+    if (req.body.checkBox) {
         req.body.rname2 = req.body.rname1;
         req.body.rnumber2 = req.body.rnumber1;
         req.body.remail2 = req.body.remail1;
@@ -45,7 +47,6 @@ router.post('/buy', function (req, res){
     }
     if (valid) {
         for (i = 0; i < quantity; i++) {
-            newOrder[i].quantity = quantity;
             newOrder[i].date = new Date().toJSON();
             if (i == 0){
                 newOrder[i].rName = req.body.rname1;
@@ -76,13 +77,23 @@ router.post('/buy', function (req, res){
             }
         }
         //store newOrder in cache, and the keys in sessions
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        var key = getRandomInt(0,10000).toString();
+        cache.put(key, newOrder, 86400000);
+        res.cookie('key', key, {maxAge: 86400000, signed: true});
+
+        // TODO - Redirection
     }
     else {
         res.render('buy',{response:"Error filling details"});
     }
 });
 
-router.get('/success', function (req, res) {
+router.get('/finish', function (req, res) {
+    if (res.signedCookie.key) {
+        var orders = cache.get(res.signedCookie.key);
         var collection = req.db.collection('transactions');
         var onInsert = function (err, orders) {
             if (err) {
@@ -91,10 +102,12 @@ router.get('/success', function (req, res) {
             else {
                 console.log('Transaction Stored');
             }
+            if (req.signedCookies.key) res.clearCookie('key', { });
         }
-        for (var i = 0; i < objects[i].quantity; i++) {
+        for (var i = 0; i < orders.length; i++) {
             collection.insert(orders[i], onInsert);
         }
+    }
 });
 
 module.exports = router;
