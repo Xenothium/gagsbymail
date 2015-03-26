@@ -19,9 +19,11 @@
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
 		<script>
-			function show1cc(){
-				document.getElementById("hidden1cc").style.display="block";
-			}
+			$(document).ready(function(){
+				$(#togglecc1).click(function(){
+					$(#hidden1cc).toggle();
+				});
+			});
 		</script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
@@ -115,10 +117,10 @@
 						<li><a href="https://www.payumoney.com/paybypayumoney/#/37323" class="button">BUY 2</a></li>
 						<li><a href="https://www.payumoney.com/paybypayumoney/#/37329" class="button">BUY 3</a></li>
 						-->
-						<li><input type="button" class="button" value="BUY 1" onclick="show1cc"></li>
+						<li><input type="button" class="button" id="togglecc1" value="BUY 1"></li>
 					</ul>
 				</div>
-				<div class="content notvisible" id="hidden1cc">
+				<div class="content" id="hidden1cc">
 					<header>
 						<h2>BUY 1</h2>
 					</header>
