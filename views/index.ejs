@@ -18,10 +18,20 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
+		<script>
+			function show1cc(){
+				document.getElementById("hidden1cc").style.display="block";
+			}
+		</script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-xlarge.css" />
+			<style>
+				.notvisible{
+					display:none;
+				}
+			</style>
 		</noscript>
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
@@ -100,10 +110,18 @@
 					</header>
 					<p class="small">Filled lovingly with the choiciest and spiciest chilly powders in the market, gagsbymail's irresistible chilli chocolates are bound to leave your friends thirsting for more (*water). Carefully packed for maximum deception, the 6 or 5 pack contains 2 regular chocolates in the diagonals (see attached image for details) along with the ultra hot chilli centered ones. Pop the regular chocolate in your mouth and snigger while your friends turn red with heat. Read the terms carefully before ordering.<br/>Order before 27th March for delivery on April Fools' Day.</p>
 					<ul class="actions">
+						<!--
 						<li><a href="https://www.payumoney.com/paybypayumoney/#/37321" class="button">BUY 1</a></li>
 						<li><a href="https://www.payumoney.com/paybypayumoney/#/37323" class="button">BUY 2</a></li>
 						<li><a href="https://www.payumoney.com/paybypayumoney/#/37329" class="button">BUY 3</a></li>
+						-->
+						<li><input type="button" class="button" value="BUY 1" onclick="show1cc"></li>
 					</ul>
+				</div>
+				<div class="content notvisible" id="hidden1cc">
+					<header>
+						<h2>BUY 1</h2>
+					</header>
 				</div>
 				<a href="#three" class="goto-next scrolly">Next</a>
 			</section>
