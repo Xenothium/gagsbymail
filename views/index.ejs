@@ -50,6 +50,12 @@
             z-index:50001;
             overflow: auto;
         }
+        #button1:target~.white_content{
+            display:block;
+        }
+        #button1:target~.black_overlay{
+            display:block;
+        }
         </style>
     </noscript>
     <!--[if lte IE 9]>
@@ -140,8 +146,8 @@
             snigger while your friends turn red with heat. Read the terms carefully before ordering.<br/>Order before
             27th March for delivery on April Fools' Day.</p>
         <ul class="actions">
-            <li><a href = "javascript:void(0)" class="button" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">BUY 1</a></li>
-            <li><a href="https://www.payumoney.com/paybypayumoney/#/37321" class="button">BUY 1</a></li>
+            <li><a href = "#nogo" class="button" id="button1">BUY 1</a></li>
+<!--            <li><a href="https://www.payumoney.com/paybypayumoney/#/37321" class="button">BUY 1</a></li>-->
             <li><a href="https://www.payumoney.com/paybypayumoney/#/37323" class="button">BUY 2</a></li>
             <li><a href="https://www.payumoney.com/paybypayumoney/#/37329" class="button">BUY 3</a></li>
         </ul>
