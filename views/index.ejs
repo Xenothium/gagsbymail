@@ -12,51 +12,29 @@
     <meta name="keywords" content=""/>
     <!--[if lte IE 8]>
     <script src="css/ie/html5shiv.js"></script><![endif]-->
-    <script src="js/jquery-1.7.0.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/jquery.scrolly.min.js"></script>
     <script src="js/jquery.dropotron.min.js"></script>
     <script src="js/jquery.scrollex.min.js"></script>
     <script src="js/skel.min.js"></script>
     <script src="js/skel-layers.min.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/jquery.poptrox.min.js"></script>
+    <script>
+        jQuery.noConflict();
+    </script>
+    <script src="js/cerabox.min.js"></script>
+    <script src="MooTools-Core-1.5.1"></script>
+    <script type="text/javascript">
+    window.addEvent('domready', function(){
+        $$('a.ceraBox').cerabox();
+    });
+    </script>
     <noscript>
+        <link rel="stylesheet" href="css/cerabox.css" media="screen" />
         <link rel="stylesheet" href="css/skel.css"/>
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/style-xlarge.css"/>
-        <style>
-        .black_overlay{
-            display: none;
-            position: absolute;
-            top: 0%;
-            left: 0%;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            z-index:50000;
-            -moz-opacity: 0.8;
-            opacity:.80;
-            filter: alpha(opacity=80);
-        }
-        .white_content {
-            display: none;
-            position: absolute;
-            top: 25%;
-            left: 25%;
-            width: 50%;
-            height: 50%;
-            padding: 16px;
-            border: 16px solid orange;
-            background-color: white;
-            z-index:50001;
-            overflow: auto;
-        }
-        #button1:target~.white_content{
-            display:block;
-        }
-        #button1:target~.black_overlay{
-            display:block;
-        }
-        </style>
     </noscript>
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="css/ie/v9.css"/><![endif]-->
@@ -146,13 +124,11 @@
             snigger while your friends turn red with heat. Read the terms carefully before ordering.<br/>Order before
             27th March for delivery on April Fools' Day.</p>
         <ul class="actions">
-            <li><a href = "#nogo" class="button" id="button1">BUY 1</a></li>
-<!--            <li><a href="https://www.payumoney.com/paybypayumoney/#/37321" class="button">BUY 1</a></li>-->
+            <li><a href="http://xzhibit.com" class="button ceraBox">BUY 1</a></li>
+            <!--<li><a href="https://www.payumoney.com/paybypayumoney/#/37321" class="button">BUY 1</a></li>-->
             <li><a href="https://www.payumoney.com/paybypayumoney/#/37323" class="button">BUY 2</a></li>
             <li><a href="https://www.payumoney.com/paybypayumoney/#/37329" class="button">BUY 3</a></li>
         </ul>
-        <div id="light" class="white_content">BUY 1 form goes here<a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a></div>
-        <div id="fade" class="black_overlay"></div>
     </div>
     <a href="#three" class="goto-next scrolly">Next</a>
 </section>
