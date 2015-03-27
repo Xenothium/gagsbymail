@@ -19,13 +19,15 @@
     <script src="js/skel.min.js"></script>
     <script src="js/skel-layers.min.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/jquery.poptrox.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            alert("Testing JS");
-        })
+    <script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.5"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.fancybox').fancybox();
+        });
     </script>
+
     <noscript>
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />
         <link rel="stylesheet" href="css/skel.css"/>
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/style-xlarge.css"/>
@@ -118,7 +120,8 @@
             snigger while your friends turn red with heat. Read the terms carefully before ordering.<br/>Order before
             27th March for delivery on April Fools' Day.</p>
         <ul class="actions">
-            <li><a href="https://www.payumoney.com/paybypayumoney/#/37321" class="button">BUY 1</a></li>
+            <li><a class="button fancybox fancybox.iframe" href="http://xzhibit.com">BUY 1</a></li>
+            <!--<li><a href="https://www.payumoney.com/paybypayumoney/#/37321" class="button">BUY 1</a></li>-->
             <li><a href="https://www.payumoney.com/paybypayumoney/#/37323" class="button">BUY 2</a></li>
             <li><a href="https://www.payumoney.com/paybypayumoney/#/37329" class="button">BUY 3</a></li>
         </ul>
